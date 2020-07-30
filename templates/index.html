@@ -4,6 +4,13 @@
 
 {% block content %}
 
+{% if request.user.is_anonymous %}
+<div class="card__panel-head">
+    <h3>If you want to use the mini instagram function, please sign up or login first.</h3>
+    <h3>You can just use the guset account to login</h3>
+    <p>username: test123</p><p>password: happyinstagram</p>
+</div>
+{% endif %}
 <div class="cards-listing">
     {% for post in object_list %}
         <div class="row">

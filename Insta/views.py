@@ -14,12 +14,12 @@ class PostView(ListView):
     model = Post
     template_name = 'index.html'
 
-    def get_queryset(self):
-        current_user = self.request.user
-        following = set()
-        for conn in UserConnection.objects.filter(creator=current_user).select_related('following'):
-            following.add(conn.following)
-        return Post.objects.filter(author__in=following)
+    # def get_queryset(self):
+    #     current_user = self.request.user
+    #     following = set()
+    #     for conn in UserConnection.objects.filter(creator=current_user).select_related('following'):
+    #         following.add(conn.following)
+    #     return Post.objects.filter(author__in=following)
 
 class PostDetailView(DetailView):
     model = Post
@@ -35,6 +35,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'post_create.html'
     fields = '__all__'
     login_url = 'login'
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
