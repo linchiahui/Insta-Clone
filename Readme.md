@@ -1,1 +1,1 @@
-Read me!
+# Mini Instagram Clone by Django
